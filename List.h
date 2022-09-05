@@ -1,8 +1,8 @@
 /*
- * Name:
- * Date Submitted:
+ * Name: John Ruane
+ * Date Submitted: 
  * Lab Section:
- * Assignment Name:
+ * Assignment Name: Lab 1
  */
 
 #pragma once
