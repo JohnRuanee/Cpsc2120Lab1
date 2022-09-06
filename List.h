@@ -91,9 +91,12 @@ bool List<T>::empty(){
 //into this list at start
 template <class T>
 void List<T>::insertStart(T value){
-  Node<T> *n = start;
-  start.next = n;
-  start.value = value; 
+  Node<T> *s = new Node(value);
+  if(mySize != 0){
+  Node<T> *n = new Node(start->value);
+  start->next = n;
+  }
+  start = s; 
   mySize++;
 }
 
@@ -101,20 +104,20 @@ void List<T>::insertStart(T value){
 //into this list at end
 template <class T>
 void List<T>::insertEnd(T value){
-  Node<T> *n = start;
-  Node o = Node(value);
-
+  Node<T> * iterator = start;
+  Node<T> *n = new Node(value);
   for(int i = 0; i < mySize; i++){
-    n = n->next;
+    iterator = iterator->next;
   }
-  n->next = &o;
+  start->next = n;
   mySize++;
+
 }
 
 //Create a new node with value <value>, and insert that new node at position j
 template <class T>
 void List<T>::insertAt(T value, int j){
-   Node<T> *n = start;
+  Node<T> *n = start;
   Node o = new Node(value);
 
   for(int i = 0; i < j; i++){
@@ -129,10 +132,12 @@ void List<T>::insertAt(T value, int j){
 //Make no other changes to list
 template <class T>
 void List<T>::removeStart(){
-   Node<T> *n = start->next;
-  Node<T> * d = start;
-  start = n;
-  delete d;
+  if(start->next != nullptr){
+    Node<T> *n = start->next;
+    delete start;
+    start = n;
+  }else 
+    delete start;
   mySize--;
 }
 
@@ -140,13 +145,13 @@ void List<T>::removeStart(){
 //Make no other changes to list
 template <class T>
 void List<T>::removeEnd(){
-  Node n = start;
+  Node<T> * n = start;
 
   for(int i = 0; i < mySize - 1; i++){
-    n = n.next;
+    n = n->next;
   }
-  delete &n.next;
-  n.next = nullptr;
+  delete n->next;
+  n->next = nullptr;
   mySize--;
 }
 
@@ -154,17 +159,16 @@ void List<T>::removeEnd(){
 //Make no other changes to list
 template <class T>
 void List<T>::removeAt(int j){
-  Node n = start;
-  Node o = start;
-  Node d = start;
+  Node<T> * n = start;
+  
 
   for(int i = 0; i < j - 1; i++){
     n = n.next;
   }
-  d = n.next;
-  o = d.next;
-  n.next = o;
-  delete &d;
+  Node<T> * d = n.next;
+  Node<T> * o = d.next;
+  n->next = o;
+  delete d;
   mySize--;
 }
 
@@ -172,18 +176,21 @@ void List<T>::removeAt(int j){
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getFirst(){
-  return start;
+  return start->value;
 }
 
 //Return the value of the last node in the Linked List,
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getLast(){
-  Node n = start;
+  
+  Node<T> * n = start;
+  
   for(int i = 0; i < mySize; i++){
-    n = n.next;
+    
+    n = n->next;
   }
-  return n;
+  return n->value;
 }
 
 //Return the value of the node at position j in the Linked List,
