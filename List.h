@@ -118,13 +118,13 @@ void List<T>::insertEnd(T value){
 template <class T>
 void List<T>::insertAt(T value, int j){
   Node<T> *n = start;
-  Node o = new Node(value);
+  Node<T> *o = new Node(value);
 
   for(int i = 0; i < j; i++){
     n = n->next;
   }
-  o.next = n.next;
-  n.next = o;
+  o->next = n->next;
+  n->next = o;
   mySize++;
 }
 
@@ -163,10 +163,10 @@ void List<T>::removeAt(int j){
   
 
   for(int i = 0; i < j - 1; i++){
-    n = n.next;
+    n = n->next;
   }
-  Node<T> * d = n.next;
-  Node<T> * o = d.next;
+  Node<T> * d = n->next;
+  Node<T> * o = d->next;
   n->next = o;
   delete d;
   mySize--;
@@ -186,7 +186,7 @@ T List<T>::getLast(){
   
   Node<T> * n = start;
   
-  for(int i = 0; i < mySize; i++){
+  for(int i = 0; i < mySize - 1; i++){
     
     n = n->next;
   }
@@ -197,11 +197,11 @@ T List<T>::getLast(){
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getAt(int j){
-  Node n = start;
-  for(int i = 0; i < j; i++){
-    n = n.next;
+  Node<T> *n = start;
+  for(int i = 0; i < j-1; i++){
+    n = n->next;
   }
-  return n;
+  return n->value;
 }
 
 //Return the position of the (first) node whose value is equal to the key
