@@ -1,7 +1,7 @@
 /*
  * Name: John Ruane
  * Date Submitted: 
- * Lab Section:
+ * Lab Section: 001
  * Assignment Name: Lab 1
  */
 
@@ -82,8 +82,8 @@ bool List<T>::empty(){
 //into this list at start
 template <class T>
 void List<T>::insertStart(T value){
-  Node n = start;
-  start.next = &n;
+  Node<T> *n = start;
+  start.next = n;
   start.value = value; 
   mySize++;
 }
@@ -92,27 +92,27 @@ void List<T>::insertStart(T value){
 //into this list at end
 template <class T>
 void List<T>::insertEnd(T value){
-  Node n = start;
+  Node<T> *n = start;
   Node o = Node(value);
 
   for(int i = 0; i < mySize; i++){
-    n = n.next;
+    n = n->next;
   }
-  n.next = &o;
+  n->next = &o;
   mySize++;
 }
 
 //Create a new node with value <value>, and insert that new node at position j
 template <class T>
 void List<T>::insertAt(T value, int j){
-  Node n = start;
-  Node o = Node(value);
+   Node<T> *n = start;
+  Node o = new Node(value);
 
   for(int i = 0; i < j; i++){
-    n = n.next;
+    n = n->next;
   }
   o.next = n.next;
-  n.next = &o;
+  n.next = o;
   mySize++;
 }
 
@@ -120,10 +120,10 @@ void List<T>::insertAt(T value, int j){
 //Make no other changes to list
 template <class T>
 void List<T>::removeStart(){
-  Node n = &start.next;
-  Node d = &start;
+   Node<T> *n = start->next;
+  Node<T> * d = start;
   start = n;
-  delete &d;
+  delete d;
   mySize--;
 }
 
@@ -146,15 +146,15 @@ void List<T>::removeEnd(){
 template <class T>
 void List<T>::removeAt(int j){
   Node n = start;
-  Node o;
-  Node d;
+  Node o = start;
+  Node d = start;
 
   for(int i = 0; i < j - 1; i++){
     n = n.next;
   }
-  d = n.next
+  d = n.next;
   o = d.next;
-  n.next = &o;
+  n.next = o;
   delete &d;
   mySize--;
 }
