@@ -1,5 +1,4 @@
-#include "List.h"
-#include "Node.h"
+#include "ListStack.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -8,12 +7,12 @@ using namespace std;
 
 int main()
 {
-    List<int> list1;
-    for (int i=1, j = 1; i <= 10; i++){
-        j = -2*j;
-        list1.insertEnd(j);
+    ListStack<char> stack3;
+    char c[] = {'m', 'l', 'k', 'j', 'i', 'h', 'e', 'c', 'b', 'a', 'p', 'z'};
+    for(int i = 0; i < 12; i++){
+        stack3.push(c[i]);
     }
-    list1.removeStart();
+    stack3.print("list");
 
     // This can be an ofstream as well or any other ostream
     stringstream buffer;
@@ -27,9 +26,10 @@ int main()
     // Use cout as usual
     // cout << "Hello World";
 
-    list1.print("list");
+    stack3.print("list");
 
-    int test[9];
+    char test[12];
+    char test2[] = {'z', 'p', 'a', 'b', 'c', 'e', 'h', 'i', 'j', 'k', 'l', 'm'};
     string bob;
     // This section skips the info printout 
     // section of the print function
@@ -40,17 +40,17 @@ int main()
     buffer >> bob;
     buffer >> bob;
 
-    int test2[] = {4,-8,16,-32,64,-128,256,-512,1024};
-    for (int i=0; i<9;i++){
+    for (int i=0; i<12;i++){
         buffer >> bob;
-        test[i] = stoi(bob);
-        // ASSERT_EQ(test[i],test2[i]);
+        // test[i] = stoi(bob);
+        test[i] = bob.at(0);
     }
+
 
     // When done redirect cout to its old self
     cout.rdbuf(sbuf);
 
-    for (int i=0; i<9; i++)
+    for (int i=0; i<12; i++)
     {
         if (test[i] != test2[i])
         {
