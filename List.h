@@ -63,6 +63,15 @@ List<T>::List(){
 //Destroy all nodes in this list to prevent memory leaks
 template <class T>
 List<T>::~List(){
+  Node<T> * n = start->next;
+  Node<T> * d = start;
+
+  for(int i = 0; i < mySize; i++){
+    delete d; 
+    d = n;
+    n = n->next;
+  }
+  mySize = 0;
 }
 
 //Return the size of this list
