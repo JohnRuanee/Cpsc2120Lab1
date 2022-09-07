@@ -1,3 +1,4 @@
+#include "ListStack.h"
 #include "List.h"
 #include "Node.h"
 #include <iostream>
@@ -8,20 +9,19 @@ using namespace std;
 
 int main()
 {
-    cout << "test";
-    List<int> list1;
-    
-    list1.insertStart(1);
-    cout << list1.getFirst();
-    list1.insertEnd(2);
-    cout << list1.getLast();
-    list1.insertAt(3,2);
-    cout << list1.getAt(2);
+    ListStack<int> list1;
+
+    for(int i = 0; i < 10; i++){
+        list1.push(i);
+    }
+    int j = list1.pop();
+    int k = list1.pop();
+
+    list1.print("woop");
 
 
-    list1.removeAt(2);
 
-    
+   
 
     return 0;
 }

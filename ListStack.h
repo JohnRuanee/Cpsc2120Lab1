@@ -59,7 +59,7 @@ bool ListStack<T>::empty(){
 //Create a node with value <value> and push it onto the stack
 template <class T>
 void ListStack<T>::push(T value){
-  stack.insertEnd(value);
+  stack.insertStart(value);
 }
 
 //Pop a node from the Stack.
@@ -67,7 +67,7 @@ void ListStack<T>::push(T value){
 //AND returning its value.
 template <class T>
 T ListStack<T>::pop(){
-  T n = stack.getLast();
-  stack.removeEnd();
+  T n = stack.getFirst();
+  stack.removeStart();
   return n;
 }

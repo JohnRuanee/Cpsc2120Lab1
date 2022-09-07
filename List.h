@@ -66,7 +66,7 @@ List<T>::~List(){
   Node<T> * n = start->next;
   Node<T> * d = start;
 
-  for(int i = 0; i < mySize; i++){
+  for(int i = 0; i < mySize - 1; i++){
     delete d; 
     d = n;
     n = n->next;
@@ -92,11 +92,12 @@ bool List<T>::empty(){
 template <class T>
 void List<T>::insertStart(T value){
   Node<T> *s = new Node(value);
-  if(mySize != 0){
-  Node<T> *n = new Node(start->value);
-  start->next = n;
+  if(start == nullptr){
+    start = s;
+  } else {
+    s->next = start;
+    start = s;
   }
-  start = s; 
   mySize++;
 }
 
@@ -104,27 +105,41 @@ void List<T>::insertStart(T value){
 //into this list at end
 template <class T>
 void List<T>::insertEnd(T value){
-  Node<T> * iterator = start;
-  Node<T> *n = new Node(value);
-  for(int i = 0; i < mySize; i++){
-    iterator = iterator->next;
+   Node<T> *n = start;
+   if(mySize != 0){
+  for(int i = 0; i < mySize - 1; i ++){
+    n = n->next;
   }
-  start->next = n;
+  Node<T> *o = new Node(value);
+  n->next = o;
+   } else {
+  Node<T> *o = new Node(value);
+   start = o;
+   }
   mySize++;
 
 }
 
-//Create a new node with value <value>, and insert that new node at position j
+//Create a new node with value <value>, and insert that new node at position 
 template <class T>
 void List<T>::insertAt(T value, int j){
   Node<T> *n = start;
   Node<T> *o = new Node(value);
-
-  for(int i = 0; i < j; i++){
-    n = n->next;
+  if(start == nullptr){
+    o = start;
+  }else if(j == 0){
+    o->next = start;
+    start = o;
+  } else{
+    for(int i = 0; i < j - 1; i ++){
+      if(n->next != nullptr){
+        n = n->next;
+      }
+    }
+    
+    o->next = n->next;
+    n->next = o;
   }
-  o->next = n->next;
-  n->next = o;
   mySize++;
 }
 
@@ -160,15 +175,13 @@ void List<T>::removeEnd(){
 template <class T>
 void List<T>::removeAt(int j){
   Node<T> * n = start;
-  
 
   for(int i = 0; i < j - 1; i++){
     n = n->next;
   }
-  Node<T> * d = n->next;
-  Node<T> * o = d->next;
+  Node<T> *o = n->next->next;
+  delete n->next;
   n->next = o;
-  delete d;
   mySize--;
 }
 
@@ -198,7 +211,7 @@ T List<T>::getLast(){
 template <class T>
 T List<T>::getAt(int j){
   Node<T> *n = start;
-  for(int i = 0; i < j-1; i++){
+  for(int i = 0; i < j; i++){
     n = n->next;
   }
   return n->value;

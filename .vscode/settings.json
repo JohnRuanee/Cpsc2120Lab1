@@ -31,6 +31,8 @@
   "files.associations": {
     "__config": "cpp",
     "__nullptr": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "sstream": "cpp",
+    "ios": "cpp"
   }
 }

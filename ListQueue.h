@@ -26,6 +26,8 @@ class ListQueue{
   //Print the name and this ListQueue's size and values to stdout
   //This function is already implemented (no need to change it)
   void print(string name){
+    //Added if statement because it would cause a segmentation fault in an empty list
+    if(!empty())
     queue.print(name);
   }
 
@@ -69,6 +71,6 @@ void ListQueue<T>::enqueue(T value){
 template <class T>
 T ListQueue<T>::dequeue(){
   T n = queue.getFirst();
-  queue.removeFirst();
+  queue.removeStart();
   return n;
 }
