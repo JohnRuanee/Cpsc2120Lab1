@@ -58,25 +58,31 @@ class List{
 template <class T>
 List<T>::List(){
   mySize = 0;
+  start = nullptr;
 }
 
 //Destroy all nodes in this list to prevent memory leaks
 template <class T>
 List<T>::~List(){
+  //make dummy nodes
   Node<T> * n = start->next;
   Node<T> * d = start;
 
+  //for loop that delets all the used nodes
   for(int i = 0; i < mySize - 1; i++){
     delete d; 
     d = n;
     n = n->next;
   }
+
+  //sets size to 0
   mySize = 0;
 }
 
 //Return the size of this list
 template <class T>
 int List<T>::size(){
+  //returns size
   return mySize;
 }
 
@@ -84,6 +90,7 @@ int List<T>::size(){
 //Otherwise, return false
 template <class T>
 bool List<T>::empty(){
+  //checks if size is 0, if it is true is returned
   return mySize == 0 ? true:false;
 }
 
@@ -105,16 +112,18 @@ void List<T>::insertStart(T value){
 //into this list at end
 template <class T>
 void List<T>::insertEnd(T value){
-   Node<T> *n = start;
-   if(mySize != 0){
-  for(int i = 0; i < mySize - 1; i ++){
-    n = n->next;
-  }
+  Node<T> *n = start;
   Node<T> *o = new Node(value);
-  n->next = o;
+  //if size is not zero iterate through nodes until you get to the last one then set new node to the next of last
+  if(mySize != 0){
+    for(int i = 0; i < mySize - 1; i ++){
+      n = n->next;
+    }
+    n->next = o;
+    n->next->next = nullptr;
    } else {
-  Node<T> *o = new Node(value);
-   start = o;
+    //else set start to new node
+    start = o;
    }
   mySize++;
 
@@ -125,8 +134,9 @@ template <class T>
 void List<T>::insertAt(T value, int j){
   Node<T> *n = start;
   Node<T> *o = new Node(value);
+  //if start isnt set set new node to start
   if(start == nullptr){
-    o = start;
+    start = o;
   }else if(j == 0){
     o->next = start;
     start = o;
