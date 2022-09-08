@@ -70,6 +70,7 @@ void ListQueue<T>::enqueue(T value){
 //AND returning the value
 template <class T>
 T ListQueue<T>::dequeue(){
+  //sets a dummy variable then deletes the start of the queue then returns dummy 
   T n = queue.getFirst();
   queue.removeStart();
   return n;

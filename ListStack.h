@@ -67,6 +67,7 @@ void ListStack<T>::push(T value){
 //AND returning its value.
 template <class T>
 T ListStack<T>::pop(){
+  //sets a dummy variable then deletes the start of the stack then returns dummy 
   T n = stack.getFirst();
   stack.removeStart();
   return n;

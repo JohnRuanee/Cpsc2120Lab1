@@ -132,21 +132,24 @@ void List<T>::insertEnd(T value){
 //Create a new node with value <value>, and insert that new node at position 
 template <class T>
 void List<T>::insertAt(T value, int j){
+  //dummy nodes
   Node<T> *n = start;
   Node<T> *o = new Node(value);
   //if start isnt set set new node to start
   if(start == nullptr){
     start = o;
   }else if(j == 0){
+    //if inserting at start 
     o->next = start;
     start = o;
   } else{
+    //run through nodes till you get to the right node
     for(int i = 0; i < j - 1; i ++){
       if(n->next != nullptr){
         n = n->next;
       }
     }
-    
+    //moves pointers around new nodes
     o->next = n->next;
     n->next = o;
   }
@@ -157,11 +160,13 @@ void List<T>::insertAt(T value, int j){
 //Make no other changes to list
 template <class T>
 void List<T>::removeStart(){
+  //if start.next is not nullptr delete start then set the next node to start
   if(start->next != nullptr){
     Node<T> *n = start->next;
     delete start;
     start = n;
   }else 
+  //if it is delete start
     delete start;
   mySize--;
 }
@@ -171,10 +176,11 @@ void List<T>::removeStart(){
 template <class T>
 void List<T>::removeEnd(){
   Node<T> * n = start;
-
+  //run through nodes till you get to the second to last one
   for(int i = 0; i < mySize - 1; i++){
     n = n->next;
   }
+  //delete the next node and set next pointer to nullptr
   delete n->next;
   n->next = nullptr;
   mySize--;
@@ -186,11 +192,15 @@ template <class T>
 void List<T>::removeAt(int j){
   Node<T> * n = start;
 
+  //runs through nodes till the one before j
   for(int i = 0; i < j - 1; i++){
     n = n->next;
   }
+  //dummy node at the next node for the jth node
   Node<T> *o = n->next->next;
+  //delete jth node
   delete n->next;
+  //set next node to dummy
   n->next = o;
   mySize--;
 }
@@ -199,6 +209,7 @@ void List<T>::removeAt(int j){
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getFirst(){
+  //returns the value of start
   return start->value;
 }
 
@@ -206,11 +217,11 @@ T List<T>::getFirst(){
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getLast(){
-  
+  //dummy node
   Node<T> * n = start;
   
+  //runs through all the nodes till its up to my size - 1
   for(int i = 0; i < mySize - 1; i++){
-    
     n = n->next;
   }
   return n->value;
@@ -220,10 +231,13 @@ T List<T>::getLast(){
 //If no first node, return the default constructed value: T()
 template <class T>
 T List<T>::getAt(int j){
+  //dummy node
   Node<T> *n = start;
+  //run through nodes till up to j
   for(int i = 0; i < j; i++){
     n = n->next;
   }
+  //return the value of the jth node
   return n->value;
 }
 
@@ -231,13 +245,16 @@ T List<T>::getAt(int j){
 //Otherwise, return -1
 template <class T>
 int List<T>::find(T key){
-  Node n = start;
+  //dummy variable and count
+  Node<T> *n = start;
   int count = 0;
 
+  //while the right node has not been found or when count is not my size -1
   while(n.value != key || count == mySize - 1){
-    n = n.next;
+    n = n->next;
     count++;
   }
+  //if never found set count to -1
   if(count == mySize - 1)
     count = -1;
   
